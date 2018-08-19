@@ -3,6 +3,8 @@ package cn.vitalking.entity;
 import lombok.Data;
 import org.springframework.validation.BindingResult;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -13,11 +15,13 @@ import java.util.Date;
  * @date 2018-08-19 21:39
  **/
 @Data
-public class ProductInfoEntity {
+@Entity
+public class ProductInfo {
 
     /**
      * 商品id
      */
+    @Id
     private String productId;
 
     /**
