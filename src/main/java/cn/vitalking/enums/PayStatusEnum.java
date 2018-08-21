@@ -1,5 +1,6 @@
 package cn.vitalking.enums;
 
+
 import lombok.Getter;
 
 /**
@@ -9,32 +10,32 @@ import lombok.Getter;
  * @date 2018-08-20 20:40
  **/
 @Getter
-public enum ProductStatusEnum {
-
-    /**
-     * 上架
-     */
-    UP(1, "上架"),
-
-    /**
-     * 下架
-     */
-    DOWN(0, "下架");
+public enum PayStatusEnum {
 
 
     /**
-     * 代码信息
+     * 等待支付
      */
+    WAIT(0,"等待支付"),
+
+    /**
+     * 支付成功
+     */
+    SUCCESS(0,"支付成功");
+
+    /**
+     * 取消订单
+     */
+
+
     private int code;
 
-    /**
-     * 返回信息
-     */
     private String message;
 
-
-    ProductStatusEnum(int code, String message) {
+    PayStatusEnum(int code, String message) {
         this.code = code;
         this.message = message;
     }
+
+
 }

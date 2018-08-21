@@ -9,31 +9,28 @@ import lombok.Getter;
  * @date 2018-08-20 20:40
  **/
 @Getter
-public enum ProductStatusEnum {
+public enum OrderStatusEnum {
 
     /**
-     * 上架
+     * 新订单
      */
-    UP(1, "上架"),
+    NEW(0,"新订单"),
 
     /**
-     * 下架
+     * 完成订单
      */
-    DOWN(0, "下架");
-
+    FINISHED(0,"完成订单")
 
     /**
-     * 代码信息
+     * 取消订单
      */
+    ,CANCEL(0,"取消订单");
+
     private int code;
 
-    /**
-     * 返回信息
-     */
     private String message;
 
-
-    ProductStatusEnum(int code, String message) {
+    OrderStatusEnum(int code, String message) {
         this.code = code;
         this.message = message;
     }
