@@ -1,11 +1,10 @@
-package cn.vitalking.entity;
+package cn.vitalking.dto;
 
+import cn.vitalking.entity.OrderDetail;
 import cn.vitalking.enums.OrderStatusEnum;
 import cn.vitalking.enums.PayStatusEnum;
 import lombok.Data;
-import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.math.BigDecimal;
@@ -15,13 +14,11 @@ import java.util.List;
 /**
  * @author ZhouZhe
  * @version 1.0
- * @description 订单主表
- * @date 2018-08-21 21:35
+ * @description
+ * @date 2018-08-21 22:47
  **/
 @Data
-@Entity
-@DynamicUpdate
-public class OrderMaster {
+public class OrderDTO {
 
 
     /**
@@ -59,12 +56,12 @@ public class OrderMaster {
     /**
      *订单状态,默认0 新下单
      */
-    private Integer orderStatus = OrderStatusEnum.NEW.getCode();
+    private Integer orderStatus;
 
     /**
      *支付状态,默认0 未支付
      */
-    private Integer payStatus = PayStatusEnum.WAIT.getCode();
+    private Integer payStatus;
 
     /**
      * 创建时间
@@ -81,7 +78,6 @@ public class OrderMaster {
     /**
      * 忽略数据库中对应的字段
      */
-    //@Transient
-    //private List<OrderDetail> list;
+    private List<OrderDetail> list;
 
 }
