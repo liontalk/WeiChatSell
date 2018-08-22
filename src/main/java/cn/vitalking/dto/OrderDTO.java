@@ -1,12 +1,9 @@
 package cn.vitalking.dto;
 
 import cn.vitalking.entity.OrderDetail;
-import cn.vitalking.enums.OrderStatusEnum;
-import cn.vitalking.enums.PayStatusEnum;
 import lombok.Data;
 
 import javax.persistence.Id;
-import javax.persistence.Transient;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;

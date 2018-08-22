@@ -29,6 +29,18 @@ public enum ResultEnum {
 
 
     /**
+     * 订单状态不正确
+     */
+    ORDER_STATUS_ERROR(104, "订单状态不正确"),
+
+
+    /**
+     * 订单更新异常
+     */
+    ORDER_UPDATE_ERROR(105, "订单更新异常"),
+
+
+    /**
      * 订单不存在
      */
     ORDER_NOT_EXIST(103, "订单不存在");

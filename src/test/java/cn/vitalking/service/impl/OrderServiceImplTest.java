@@ -2,6 +2,7 @@ package cn.vitalking.service.impl;
 
 import cn.vitalking.dto.OrderDTO;
 import cn.vitalking.entity.OrderDetail;
+import cn.vitalking.enums.OrderStatusEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -63,13 +64,16 @@ public class OrderServiceImplTest {
 
     @Test
     public void findList() throws Exception {
-        PageRequest pageRequest  = new PageRequest(0,2);
-        Page<OrderDTO> orderDTOPage = orderService.findList(OPEN_ID,pageRequest);
-        Assert.assertNotEquals(null,orderDTOPage);
+        PageRequest pageRequest = new PageRequest(0, 2);
+        Page<OrderDTO> orderDTOPage = orderService.findList(OPEN_ID, pageRequest);
+        Assert.assertNotEquals(null, orderDTOPage);
     }
 
     @Test
     public void cancel() throws Exception {
+        OrderDTO orderDTO = orderService.findOne(ORDER_ID);
+        OrderDTO result =  orderService.cancel(orderDTO);
+        Assert.assertEquals(OrderStatusEnum.CANCEL.getCode(),result.getOrderStatus());
     }
 
     @Test

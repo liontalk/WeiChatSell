@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import javax.xml.transform.Result;
 import java.util.List;
 
 /**
@@ -50,12 +48,21 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     }
 
     @Override
+    @org.springframework.transaction.annotation.Transactional
     public void addProductInfoAmount(List<CartDTO> list) {
-
+        for (CartDTO dto : list) {
+            ProductInfo productInfo = productInfoRepository.getOne(dto.getProductId());
+            if (productInfo == null) {
+                throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+            }
+            int result = productInfo.getProductStock() + dto.getAmount();
+            productInfo.setProductStock(result);
+            productInfoRepository.save(productInfo);
+        }
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public void reduceProductInfoAmount(List<CartDTO> list) {
         for (CartDTO dto : list) {
             ProductInfo productInfo = productInfoRepository.getOne(dto.getProductId());

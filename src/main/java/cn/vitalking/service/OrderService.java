@@ -41,10 +41,10 @@ public interface OrderService {
 
     /**
      * 取消订单
-     * @param orderId
+     * @param orderDTO
      * @return
      */
-    OrderDTO cancel(String orderId);
+    OrderDTO cancel(OrderDTO orderDTO);
 
 
     /**

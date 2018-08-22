@@ -1,5 +1,6 @@
 package cn.vitalking.enums;
 
+import io.swagger.models.auth.In;
 import lombok.Getter;
 
 /**
@@ -19,14 +20,14 @@ public enum OrderStatusEnum {
     /**
      * 完成订单
      */
-    FINISHED(0,"完成订单")
+    FINISHED(1,"完成订单")
 
     /**
      * 取消订单
      */
-    ,CANCEL(0,"取消订单");
+    ,CANCEL(2,"取消订单");
 
-    private int code;
+    private Integer code;
 
     private String message;
 

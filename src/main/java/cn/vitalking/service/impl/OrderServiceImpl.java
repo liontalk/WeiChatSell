@@ -15,12 +15,14 @@ import cn.vitalking.repository.OrderMasterRepository;
 import cn.vitalking.service.OrderService;
 import cn.vitalking.service.ProductInfoService;
 import cn.vitalking.util.KeyUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.omg.CORBA.Object;
 import org.omg.PortableServer.LIFESPAN_POLICY_ID;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -41,6 +43,7 @@ import java.util.stream.Collectors;
  * @date 2018-08-21 22:53
  **/
 @Service
+@Slf4j
 public class OrderServiceImpl implements OrderService {
 
     @Autowired
@@ -116,8 +119,41 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDTO cancel(String orderId) {
-        return null;
+    @org.springframework.transaction.annotation.Transactional
+    public OrderDTO cancel(OrderDTO orderDTO) {
+
+        OrderMaster orderMaster = new OrderMaster();
+
+
+        // 1 判断订单状态
+        if (!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())) {
+            log.error("取消订单:订单状态异常。orderDTO={}", orderDTO);
+            throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
+        }
+
+        orderDTO.setOrderStatus(OrderStatusEnum.CANCEL.getCode());
+        BeanUtils.copyProperties(orderDTO, orderMaster);
+        // 2 更新订单状态
+        OrderMaster orderResult = orderMasterRepository.save(orderMaster);
+        if (orderResult == null) {
+            log.error("取消订单:更新订单失败。orderDTO={}", orderDTO);
+            throw new SellException(ResultEnum.ORDER_UPDATE_ERROR);
+        }
+
+        if (CollectionUtils.isEmpty(orderDTO.getList())) {
+            log.error("取消订单:订单中不存在商品。orderDTO={}", orderDTO);
+        }
+        // 3.修改库存
+        List<CartDTO> list = orderDTO.getList().stream().map(e ->
+                new CartDTO(e.getProductId(), e.getProductQuantity())
+        ).collect(Collectors.toList());
+        productInfoService.addProductInfoAmount(list);
+        // 4 如果已经支付 需要退款
+        if (orderDTO.getPayStatus().equals(PayStatusEnum.SUCCESS.getCode())) {
+            //TODO
+        }
+
+        return orderDTO;
     }
 
     @Override

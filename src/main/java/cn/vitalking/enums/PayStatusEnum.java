@@ -21,7 +21,7 @@ public enum PayStatusEnum {
     /**
      * 支付成功
      */
-    SUCCESS(0,"支付成功");
+    SUCCESS(1,"支付成功");
 
     /**
      * 取消订单
