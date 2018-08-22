@@ -2,6 +2,7 @@ package cn.vitalking.service;
 
 import cn.vitalking.dto.OrderDTO;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * @author ZhouZhe
@@ -32,10 +33,10 @@ public interface OrderService {
     /**
      * 查询订单列表
      * @param buyerOpenId
-     * @param orderDTO
+     * @param pageable
      * @return
      */
-    Page<OrderDTO> findList(String buyerOpenId,OrderDTO orderDTO);
+    Page<OrderDTO> findList(String buyerOpenId,Pageable pageable);
 
 
     /**

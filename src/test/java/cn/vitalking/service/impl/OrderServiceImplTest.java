@@ -8,6 +8,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
@@ -22,6 +24,8 @@ import static org.junit.Assert.*;
 public class OrderServiceImplTest {
 
     private final String OPEN_ID = "zwx534";
+
+    private final String ORDER_ID = "1534954099452";
 
     @Autowired
     private OrderServiceImpl orderService;
@@ -45,17 +49,23 @@ public class OrderServiceImplTest {
         list.add(orderDetail2);
         list.add(orderDetail);
         orderDTO.setList(list);
-        OrderDTO dto =  orderService.create(orderDTO);
-        log.info("创建订单===》dto={}",dto);
+        OrderDTO dto = orderService.create(orderDTO);
+        log.info("创建订单===》dto={}", dto);
         Assert.assertNotNull(dto);
     }
 
     @Test
     public void findOne() throws Exception {
+        OrderDTO orderDTO = orderService.findOne(ORDER_ID);
+        log.info("查询单个详情:orderDTO={}", orderDTO);
+
     }
 
     @Test
     public void findList() throws Exception {
+        PageRequest pageRequest  = new PageRequest(0,2);
+        Page<OrderDTO> orderDTOPage = orderService.findList(OPEN_ID,pageRequest);
+        Assert.assertNotEquals(null,orderDTOPage);
     }
 
     @Test

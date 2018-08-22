@@ -1,5 +1,6 @@
 package cn.vitalking.service.impl;
 
+import cn.vitalking.converter.OrderMaster2OrderDTOConverter;
 import cn.vitalking.dto.CartDTO;
 import cn.vitalking.dto.OrderDTO;
 import cn.vitalking.entity.OrderDetail;
@@ -19,13 +20,17 @@ import org.omg.PortableServer.LIFESPAN_POLICY_ID;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.transaction.Transactional;
 import java.beans.Transient;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -88,12 +93,26 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDTO findOne(String orderId) {
-        return null;
+        OrderMaster orderMaster = orderMasterRepository.findById(orderId).get();
+        if (orderMaster == null) {
+            throw new SellException(ResultEnum.ORDER_NOT_EXIST);
+        }
+        List<OrderDetail> list = orderDetailRepository.findByOrderId(orderId);
+        if (CollectionUtils.isEmpty(list)) {
+            throw new SellException(ResultEnum.ORDER_DETAIL_NOT_EXIST);
+        }
+        OrderDTO orderDTO = new OrderDTO();
+        BeanUtils.copyProperties(orderMaster, orderDTO);
+        orderDTO.setList(list);
+        return orderDTO;
     }
 
     @Override
-    public Page<OrderDTO> findList(String buyerOpenId, OrderDTO orderDTO) {
-        return null;
+    public Page<OrderDTO> findList(String buyerOpenId, Pageable pageable) {
+        Page<OrderMaster> list = orderMasterRepository.findByBuyerOpenid(buyerOpenId, pageable);
+        List<OrderDTO> pageList = OrderMaster2OrderDTOConverter.conver(list.getContent());
+        Page<OrderDTO> orderDTOS = new PageImpl<OrderDTO>(pageList, pageable, list.getTotalElements());
+        return orderDTOS;
     }
 
     @Override

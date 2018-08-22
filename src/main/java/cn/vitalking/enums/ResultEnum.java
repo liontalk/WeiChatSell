@@ -19,7 +19,19 @@ public enum ResultEnum {
     /**
      * 商品不充足
      */
-    PRODUCT_NOT_ENOUGH(101, "商品不充足");
+    PRODUCT_NOT_ENOUGH(101, "商品不充足"),
+
+
+    /**
+     * 订单详情不存在
+     */
+    ORDER_DETAIL_NOT_EXIST(102, "订单详情不存在"),
+
+
+    /**
+     * 订单不存在
+     */
+    ORDER_NOT_EXIST(103, "订单不存在");
 
     private int code;
 
