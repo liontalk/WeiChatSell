@@ -13,8 +13,13 @@ public enum ResultEnum {
     /**
      * 商品不存在
      */
-    PRODUCT_NOT_EXIST(100, "商品不存在");
+    PRODUCT_NOT_EXIST(100, "商品不存在"),
 
+
+    /**
+     * 商品不充足
+     */
+    PRODUCT_NOT_ENOUGH(101, "商品不充足");
 
     private int code;
 

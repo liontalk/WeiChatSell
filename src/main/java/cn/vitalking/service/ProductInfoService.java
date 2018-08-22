@@ -1,6 +1,7 @@
 package cn.vitalking.service;
 
 
+import cn.vitalking.dto.CartDTO;
 import cn.vitalking.entity.ProductInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,7 @@ public interface ProductInfoService {
 
     /**
      * 查询商品信息
+     *
      * @param productID
      * @return
      */
@@ -26,6 +28,7 @@ public interface ProductInfoService {
 
     /**
      * 查询所有上架的商品
+     *
      * @return
      */
     List<ProductInfo> findUpAll();
@@ -33,6 +36,7 @@ public interface ProductInfoService {
 
     /**
      * 新增产品
+     *
      * @param productInfo
      * @return
      */
@@ -41,9 +45,25 @@ public interface ProductInfoService {
 
     /**
      * 查询所有的商品
+     *
      * @param pageable
      * @return
      */
     Page<ProductInfo> findAll(Pageable pageable);
+
+    /**
+     * 增加库存
+     *
+     * @param list
+     */
+    void addProductInfoAmount(List<CartDTO> list);
+
+
+    /**
+     * 减少库存
+     *
+     * @param list
+     */
+    void reduceProductInfoAmount(List<CartDTO> list);
 
 }
