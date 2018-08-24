@@ -140,6 +140,7 @@ public class OrderServiceImpl implements OrderService {
             throw new SellException(ResultEnum.ORDER_UPDATE_ERROR);
         }
 
+
         if (CollectionUtils.isEmpty(orderDTO.getList())) {
             log.error("取消订单:订单中不存在商品。orderDTO={}", orderDTO);
         }
