@@ -39,7 +39,10 @@ public enum ResultEnum {
      */
     ORDER_UPDATE_ERROR(105, "订单更新异常"),
 
-
+    /**
+     * 订单支付状态不正确
+     */
+    ORDER_PAY_STATUS_ERROR(106, "订单支付状态不正确"),
     /**
      * 订单不存在
      */

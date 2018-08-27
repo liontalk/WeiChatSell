@@ -3,6 +3,7 @@ package cn.vitalking.service.impl;
 import cn.vitalking.dto.OrderDTO;
 import cn.vitalking.entity.OrderDetail;
 import cn.vitalking.enums.OrderStatusEnum;
+import cn.vitalking.enums.PayStatusEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -85,6 +86,9 @@ public class OrderServiceImplTest {
 
     @Test
     public void paid() throws Exception {
+        OrderDTO orderDTO = orderService.findOne(ORDER_ID);
+        OrderDTO result =  orderService.paid(orderDTO);
+        Assert.assertEquals(PayStatusEnum.SUCCESS.getCode(),result.getPayStatus());
     }
 
 }

@@ -28,7 +28,7 @@ public enum PayStatusEnum {
      */
 
 
-    private int code;
+    private Integer code;
 
     private String message;
 
