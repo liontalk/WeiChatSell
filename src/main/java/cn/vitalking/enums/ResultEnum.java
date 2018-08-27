@@ -43,6 +43,20 @@ public enum ResultEnum {
      * 订单支付状态不正确
      */
     ORDER_PAY_STATUS_ERROR(106, "订单支付状态不正确"),
+
+
+
+    /**
+     * 参数不正确
+     */
+    PARAM_ERROR(107, "参数不正确"),
+
+    /**
+     * 购物车不能为空
+     */
+    CART_EMPTY(108, "购物车不能为空"),
+
+
     /**
      * 订单不存在
      */

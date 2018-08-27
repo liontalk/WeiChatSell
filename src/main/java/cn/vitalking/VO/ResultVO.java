@@ -9,13 +9,13 @@ import lombok.Data;
  * @date 2018-08-20 21:08
  **/
 @Data
-public class ResultVO {
+public class ResultVO<T> {
 
 
     /**
      * 错误码
      */
-    private int code;
+    private Integer code;
 
 
     /**
