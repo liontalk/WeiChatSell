@@ -49,17 +49,17 @@ public interface OrderService {
 
     /**
      * 完成订单
-     * @param orderId
+     * @param orderDTO
      * @return
      */
-    OrderDTO finish(String orderId);
+    OrderDTO finish(OrderDTO orderDTO);
 
 
     /**
      * 支付订单
-     * @param orderId
+     * @param orderDTO
      * @return
      */
-    OrderDTO paid(String orderId);
+    OrderDTO paid(OrderDTO orderDTO);
 
 }
