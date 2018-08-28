@@ -9,12 +9,15 @@ import cn.vitalking.exception.SellException;
 import cn.vitalking.form.OrderForm;
 import cn.vitalking.service.OrderService;
 import cn.vitalking.util.ResultVOUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
@@ -30,6 +33,7 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/buyer/order")
 @Slf4j
+@Api("用户订单管理")
 public class BuyerOrderController {
 
 
@@ -38,8 +42,9 @@ public class BuyerOrderController {
 
     //创建订单
 
-    @RequestMapping(value = "/create")
+    @RequestMapping(value = "/create",method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value = "创建订单", notes = "用户创建订单")
     public ResultVO<Map<String, String>> create(@Valid OrderForm orderForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.error("【创建订单】 参数不正确,orderForm={}", orderForm);
@@ -53,12 +58,9 @@ public class BuyerOrderController {
             throw new SellException(ResultEnum.PARAM_ERROR);
 
         }
-
-
         OrderDTO result = orderService.create(orderDTO);
-
         Map<String, String> map = new HashMap();
-        map.put("orderId",result.getOrderId());
+        map.put("orderId", result.getOrderId());
         return ResultVOUtil.success(map);
     }
 
