@@ -35,7 +35,7 @@ public class OrderForm2OrderDTOConverter {
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setBuyerName(orderForm.getName());
         orderDTO.setBuyerAddress(orderForm.getAddress());
-        orderDTO.setOrderId(orderForm.getOpenId());
+        orderDTO.setBuyerOpenid(orderForm.getOpenId());
         orderDTO.setBuyerPhone(orderForm.getPhone());
         List<OrderDetail> list = new ArrayList<>();
         try {
