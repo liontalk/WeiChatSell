@@ -7,6 +7,7 @@ import cn.vitalking.enums.OrderStatusEnum;
 import cn.vitalking.enums.ResultEnum;
 import cn.vitalking.exception.SellException;
 import cn.vitalking.form.OrderForm;
+import cn.vitalking.service.BuyerService;
 import cn.vitalking.service.OrderService;
 import cn.vitalking.util.ResultVOUtil;
 import io.swagger.annotations.Api;
@@ -47,6 +48,9 @@ public class BuyerOrderController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private BuyerService buyerService;
 
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -103,10 +107,7 @@ public class BuyerOrderController {
             log.error("【查询订单详情】 orderId 为空");
             throw new SellException(ResultEnum.PARAM_ERROR);
         }
-        /**
-         * TODO  orderId 不安全 需要验证
-         */
-        OrderDTO orderDTO = orderService.findOne(orderId);
+        OrderDTO orderDTO = buyerService.findOrderOne(orderId, openId);
         return ResultVOUtil.success(orderDTO);
     }
 
@@ -125,11 +126,7 @@ public class BuyerOrderController {
             log.error("【查询订单详情】 orderId 为空");
             throw new SellException(ResultEnum.PARAM_ERROR);
         }
-        /**
-         * TODO  orderId 不安全 需要验证
-         */
-        OrderDTO orderDTO = orderService.findOne(orderId);
-        orderService.cancel(orderDTO);
+        buyerService.cancleOrder(orderId, openId);
         return ResultVOUtil.success();
     }
 

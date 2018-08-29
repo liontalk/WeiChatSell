@@ -58,6 +58,12 @@ public enum ResultEnum {
 
 
     /**
+     * 购物车不能为空
+     */
+    ORDER_OWNER_EMPTY(109, "该订单不属于当前用户"),
+
+
+    /**
      * 订单不存在
      */
     ORDER_NOT_EXIST(103, "订单不存在");
