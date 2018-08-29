@@ -2,6 +2,7 @@ package cn.vitalking.entity;
 
 import cn.vitalking.enums.OrderStatusEnum;
 import cn.vitalking.enums.PayStatusEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -69,12 +70,14 @@ public class OrderMaster {
     /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
 
     /**
      * 更新时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
 

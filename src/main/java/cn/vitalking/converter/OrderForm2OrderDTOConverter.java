@@ -1,6 +1,5 @@
 package cn.vitalking.converter;
 
-import cn.vitalking.dto.CartDTO;
 import cn.vitalking.dto.OrderDTO;
 import cn.vitalking.entity.OrderDetail;
 import cn.vitalking.enums.ResultEnum;
@@ -9,7 +8,6 @@ import cn.vitalking.form.OrderForm;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -44,7 +42,7 @@ public class OrderForm2OrderDTOConverter {
             if (array != null && array.size() > 0) {
                 for (int i = 0; i < array.size(); i++) {
                     OrderDetail orderDetail = new OrderDetail();
-                    Map map= JSON.parseObject(array.get(i).toString());
+                    Map map = JSON.parseObject(array.get(i).toString());
                     Integer productQuantity = (Integer) map.get("productQuantity");
                     String productId = (String) map.get("productId");
                     orderDetail.setProductId(productId);
@@ -57,30 +55,8 @@ public class OrderForm2OrderDTOConverter {
             throw new SellException(ResultEnum.CART_EMPTY);
         }
         orderDTO.setList(list);
-        log.info("获得实体 orderDTO={}",orderDTO);
+        log.info("获得实体 orderDTO={}", orderDTO);
         return orderDTO;
     }
 
-/*
-    public static void main(String[] args) {
-        OrderForm orderForm = new OrderForm();
-        orderForm.setName("zhangsan");
-        orderForm.setPhone("18868822111");
-        orderForm.setAddress("慕课网总部");
-        orderForm.setOpenId("ew3euwhd7sjw9diwkq");
-        orderForm.setItems(" [{\n" +
-                "            \"productId\": \"1423113435324\",\n" +
-                "            \"productQuantity\": 2\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"productId\": \"1423113435325\",\n" +
-                "            \"productQuantity\": 2\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"productId\": \"1423113435326\",\n" +
-                "            \"productQuantity\": 2\n" +
-                "        }]");
-
-        System.out.println("=---==========================>" + convert(orderForm));
-    }*/
 }

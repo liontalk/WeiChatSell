@@ -1,6 +1,8 @@
 package cn.vitalking.dto;
 
 import cn.vitalking.entity.OrderDetail;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import javax.persistence.Id;
@@ -15,6 +17,7 @@ import java.util.List;
  * @date 2018-08-21 22:47
  **/
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderDTO {
 
 
@@ -63,12 +66,14 @@ public class OrderDTO {
     /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
 
     /**
      * 更新时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
 
